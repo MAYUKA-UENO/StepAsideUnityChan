@@ -2,12 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ConeDestroy : MonoBehaviour
+public class ItemDestroy : MonoBehaviour
 {
-
-    //ConePrefabを入れる
-    public GameObject TrafficConePrefab;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +15,6 @@ public class ConeDestroy : MonoBehaviour
     {
         Destroy(this.gameObject);
     }
-
 
     // Update is called once per frame
     void Update()
