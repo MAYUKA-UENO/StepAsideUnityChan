@@ -81,10 +81,4 @@ public class ItemGenerator : MonoBehaviour
     }
 
 
-    //画面外に出たものを消す！
-    void OnBecameInvisible()
-    {
-        Destroy(gameObject);
-    }
-
 }
