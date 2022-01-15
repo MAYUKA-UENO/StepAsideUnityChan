@@ -14,9 +14,6 @@ public class Destroyer : MonoBehaviour
     //見えない壁を移動させるコンポーネント入れる
     private Rigidbody myRigidbody;
 
-    //前方向の速度
-    private float velocityZ = 16f;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -34,10 +31,13 @@ public class Destroyer : MonoBehaviour
     void Update()
     {
         //Unityちゃんの位置に合わせて見えない壁の位置を移動
-        this.transform.position = new Vector3(0, this.transform.position.y, this.unitychan.transform.position.z - difference);
+        this.transform.position = new Vector3(0, 2.5f, this.unitychan.transform.position.z - this.difference);
 
-        //Unityちゃんに速度を与える
-        this.myRigidbody.velocity = new Vector3(0, 0, velocityZ);
     }
-
+    //他のオブジェクトと接触した場合の処理
+    void OnTriggerEnter(Collider other)
+    {
+        //接触したオブジェクトを破棄
+        Destroy(other.gameObject);
+    }
 }
