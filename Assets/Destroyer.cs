@@ -37,7 +37,11 @@ public class Destroyer : MonoBehaviour
     //他のオブジェクトと接触した場合の処理
     void OnTriggerEnter(Collider other)
     {
-        //接触したオブジェクトを破棄
-        Destroy(other.gameObject);
+       
+            //接触したオブジェクトを破棄
+            Destroy(other.gameObject);
+            Debug.Log("衝突したオブジェクト" + gameObject.name);
+            Debug.Log("衝突されたオブジェクト" + other.gameObject.name);
+       
     }
 }

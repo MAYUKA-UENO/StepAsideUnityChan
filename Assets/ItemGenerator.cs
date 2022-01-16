@@ -13,6 +13,9 @@ public class ItemGenerator : MonoBehaviour
     //conePrefabを入れる
     public GameObject conePrefab;
 
+    //Unityちゃんのオブジェクトを入れる
+    private GameObject unitychan;
+
     //スタート地点
     private int startPos = 80;
 
@@ -22,11 +25,23 @@ public class ItemGenerator : MonoBehaviour
     //アイテムを出すx方向の範囲
     private float posRange = 3.4f;
 
+    //Unityちゃんから前のアイテム生成OKスパン
+    private float span;
+
     // Start is called before the first frame update
     void Start()
     {
-        //一定の距離ごとにアイテムを生成
-        for (int i = startPos; i < goalPos; i += 15)
+        //Unityちゃんのオブジェクトを取得
+        this.unitychan = GameObject.Find("unitychan");
+
+        //Unityちゃんの前のアイテム生成スパン指定
+        this.span = unitychan.transform.position.z + 150;
+
+        //ゴールより先にはアイテムを生成しないためのif
+        if (this.span < goalPos)
+
+            //一定の距離ごとにアイテムを生成
+            for (int i = startPos; i < this.span; i += 15)
         {
 
             //どのアイテムを出すのかをランダムに設定
