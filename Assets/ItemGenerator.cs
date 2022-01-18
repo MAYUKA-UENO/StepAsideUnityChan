@@ -28,71 +28,89 @@ public class ItemGenerator : MonoBehaviour
     //Unityちゃんから前のアイテム生成OKスパン
     private float span;
 
+    //インターバルと経過時間のカウント
+    private float interval;
+    private float time = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
+
         //Unityちゃんのオブジェクトを取得
-        this.unitychan = GameObject.Find("unitychan");
+        unitychan = GameObject.Find("unitychan");
 
-        //Unityちゃんの前のアイテム生成スパン指定
-        this.span = unitychan.transform.position.z + 150;
+        //１秒間隔で発生
+        interval = 1;
 
-        //ゴールより先にはアイテムを生成しないためのif
-        if (this.span < goalPos)
-
-            //一定の距離ごとにアイテムを生成
-            for (int i = startPos; i < this.span; i += 15)
-        {
-
-            //どのアイテムを出すのかをランダムに設定
-            int num = Random.Range(1, 11);
-            if (num <= 2)
-            {
-                //コーンをx軸方向に一直線に生成
-                for (float j = -1; j <= 1; j += 0.4f)
-                {
-
-                    GameObject cone = Instantiate(conePrefab);
-                    cone.transform.position = new Vector3(4 * j, cone.transform.position.y, i);
-
-                }
-
-            }
-
-            else
-
-            {
-                //レーンごとにアイテムを生成
-                for (int j = -1; j <= 1; j++)
-
-                {
-                    //アイテムの種類を決める
-                    int item = Random.Range(1, 11);
-                    //アイテムを置くZ座標のオフセットをランダムに設定
-                    int offsetZ = Random.Range(-5, 6);
-
-                    //60%コイン配置：30%車配置：10％何もなし
-                    if (1 <= item && item <= 6)
-                    {
-                        //コイン生成
-                        GameObject coin = Instantiate(coinPrefab);
-                        coin.transform.position = new Vector3(posRange * j, coin.transform.position.y, i + offsetZ);
-                    }
-
-                    else if (7 <= item && item <= 9)
-                    {
-                        //車を生成
-                        GameObject car = Instantiate(carPrefab);
-                        car.transform.position = new Vector3(posRange * j, car.transform.position.y, i + offsetZ);
-                    }
-                }
-            }
-        }
     }
 
     // Update is called once per frame
     void Update()
-    {    
+    {
+        //Unityちゃんの前のアイテム生成スパン指定
+        span = unitychan.transform.position.z + 50;
+
+        //時間計測
+        time += Time.deltaTime;
+
+
+        //時間がインターバル１秒以上になったときに発動
+        if (time > interval)
+        { 
+
+        //一定の距離ごとにアイテムを生成
+        for (int i = startPos; i < span; i += 15)
+            {
+
+                //どのアイテムを出すのかをランダムに設定
+                int num = Random.Range(1, 11);
+                if (num <= 2)
+                {
+                    //コーンをx軸方向に一直線に生成
+                    for (float j = -1; j <= 1; j += 0.4f)
+                    {
+
+                        GameObject cone = Instantiate(conePrefab);
+                        cone.transform.position = new Vector3(4 * j, cone.transform.position.y, i);
+
+                    }
+
+                }
+
+                else
+
+                {
+                    //レーンごとにアイテムを生成
+                    for (int j = -1; j <= 1; j++)
+
+                    {
+                        //アイテムの種類を決める
+                        int item = Random.Range(1, 11);
+                        //アイテムを置くZ座標のオフセットをランダムに設定
+                        int offsetZ = Random.Range(-5, 6);
+
+                        //60%コイン配置：30%車配置：10％何もなし
+                        if (1 <= item && item <= 6)
+                        {
+                            //コイン生成
+                            GameObject coin = Instantiate(coinPrefab);
+                            coin.transform.position = new Vector3(posRange * j, coin.transform.position.y, i + offsetZ);
+                        }
+
+                        else if (7 <= item && item <= 9)
+                        {
+                            //車を生成
+                            GameObject car = Instantiate(carPrefab);
+                            car.transform.position = new Vector3(posRange * j, car.transform.position.y, i + offsetZ);
+                        }
+                    }
+                }
+            }
+
+　　　　　　　//時間カウントをリセット
+            time = 0;
+
+        }
     }
 
 
